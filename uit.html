@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head><!--ea0404-->
+  <title>Unit Converter</title>
+  <style>
+    body{
+        background-color: #ccc;
+    }
+    .converter {
+      margin: 20px;
+      padding: 20px;
+      border: 2px solid #ea0404;
+      width: 300px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="number"] {
+      width: 96%;
+      padding: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: aquamarine;
+    }
+    button:hover{
+        background-color: rgb(30, 156, 8);
+    }
+    h2{
+        background-color: #77ec79;
+        border-radius: 15px;
+        padding: 10px;
+    }
+  </style>
+</head>
+<body><center>
+  <div class="converter">
+    <h2>Unit Converter</h2>
+    <label>Value:</label>
+    <input type="number" id="valueInput">
+    <label>From:</label>
+    <select id="fromUnitSelect">
+      <option value="mm">Millimeter (mm)</option>
+      <option value="cm">Centimeter (cm)</option>
+      <option value="m">Meter (m)</option>
+      <option value="km">Kilometer (km)</option>
+      <option value="in">Inch (in)</option>
+      <option value="ft">Foot (ft)</option>
+      <option value="yd">Yard (yd)</option>
+      <option value="mi">Mile (mi)</option>
+    </select>
+    <label>To:</label>
+    <select id="toUnitSelect">
+      <option value="mm">Millimeter (mm)</option>
+      <option value="cm">Centimeter (cm)</option>
+      <option value="m">Meter (m)</option>
+      <option value="km">Kilometer (km)</option>
+      <option value="in">Inch (in)</option>
+      <option value="ft">Foot (ft)</option>
+      <option value="yd">Yard (yd)</option>
+      <option value="mi">Mile (mi)</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+    <h3 id="result"></h3>
+  </div>
+
+  <script>
+    function convert() {
+      var value = parseFloat(document.getElementById('valueInput').value);
+      var fromUnit = document.getElementById('fromUnitSelect').value;
+      var toUnit = document.getElementById('toUnitSelect').value;
+
+      var conversionTable = {
+        'mm': 0.001,
+        'cm': 0.01,
+        'm': 1.0,
+        'km': 1000.0,
+        'in': 0.0254,
+        'ft': 0.3048,
+        'yd': 0.9144,
+        'mi': 1609.34
+      };
+
+      if (isNaN(value)) {
+        alert('Please enter a valid number.');
+        return;
+      }
+
+      if (!(fromUnit in conversionTable) || !(toUnit in conversionTable)) {
+        alert('Invalid units.');
+        return;
+      }
+
+      var meters = value * conversionTable[fromUnit];
+      var result = meters / conversionTable[toUnit];
+      result=result.toFixed(2);
+
+      document.getElementById('result').innerHTML = 'Result: '+value + ' ' + fromUnit + ' is equal to ' + result + ' ' + toUnit;
+    }
+  </script>
+  </center>
+</body>
+</html>
